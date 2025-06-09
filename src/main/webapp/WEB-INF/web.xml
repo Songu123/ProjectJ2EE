@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                             http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         version="2.5">
+
+  <display-name>Archetype Created Web Application</display-name>
+
+  <!--  Default site-->
+  <welcome-file-list>
+    <welcome-file>home.jsp</welcome-file>
+  </welcome-file-list>
+<!--  Default site-->
+<!--  <servlet>-->
+<!--    <servlet-name>HomeServlet</servlet-name>-->
+<!--    <servlet-class>com.son.HomeServlet</servlet-class>-->
+<!--  </servlet>-->
+<!--  <servlet-mapping>-->
+<!--    <servlet-name>HomeServlet</servlet-name>-->
+<!--    <url-pattern>/</url-pattern>-->
+<!--  </servlet-mapping>-->
+
+  <!-- Register Servlet -->
+  <servlet>
+    <servlet-name>RegisterServlet</servlet-name>
+    <servlet-class>com.son.RegisterServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RegisterServlet</servlet-name>
+    <url-pattern>/register</url-pattern>
+  </servlet-mapping>
+
+  <!-- Login Servlet -->
+  <servlet>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>com.son.LoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/login</url-pattern>
+  </servlet-mapping>
+
+  <!-- Dashboard Servlet (admin) -->
+  <servlet>
+    <servlet-name>DashboardServlet</servlet-name>
+    <servlet-class>com.son.admin.DashboardServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DashboardServlet</servlet-name>
+    <url-pattern>/dashboard</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ShopServlet</servlet-name>
+    <servlet-class>com.son.ShopServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ShopServlet</servlet-name>
+    <url-pattern>/shop</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>BlogServlet</servlet-name>
+    <servlet-class>com.son.BlogServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BlogServlet</servlet-name>
+    <url-pattern>/blog</url-pattern>
+  </servlet-mapping>
+</web-app>
