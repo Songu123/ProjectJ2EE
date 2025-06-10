@@ -24,14 +24,14 @@
             <p>Save more with coupons & up to 70% off!</p>
             <div class="wrap-form">
                 <div class="search-form">
-                    <form action="https://amzuni.com/" class="w-full" method="get">
+                    <form action="search" class="w-full" method="get">
                         <div class="from-control flex items-center relative w-full">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon-search" fill="none" viewBox="0 0 24 24"
                                  stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                   d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                             </svg>
-                            <input name="s" placeholder="Search ..." type="text"
+                            <input name="keyword" placeholder="Search ..." type="text"
                                    class="search-input w-full bg-white border-[1px] rounded-[30px] h-[40px] border-[#b3b3b3] pl-[40px]">
                         </div>
                     </form>
@@ -56,7 +56,7 @@
                             </div>
                             <h4>$${product.price}</h4>
                         </div>
-                        <a href="#"><i class="fa-solid fa-cart-shopping cart"></i></a>
+                        <a href="product?productId=${product.id}"><i class="fa-solid fa-cart-shopping cart"></i></a>
                     </div>
                 </c:forEach>
             </div>

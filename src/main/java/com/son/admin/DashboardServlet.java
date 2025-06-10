@@ -5,6 +5,7 @@ import com.son.data.dao.OrderDao;
 import com.son.data.model.Order;
 import com.son.util.GetDateTime;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -14,11 +15,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@WebServlet("/dashboard")
 public class DashboardServlet extends BaseAdminServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
         OrderDao orderDao = DatabaseDao.getInstance().getOrderDao();
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
@@ -49,7 +49,7 @@ public class DashboardServlet extends BaseAdminServlet{
         req.setAttribute("dateList", dateList);
         req.setAttribute("orderByDateList", orderByDateList);
         req.setAttribute("orderPendingList", orderPendingList);
-        req.getRequestDispatcher("admin/dashboard.jsp").include(req, resp);
+        req.getRequestDispatcher("./admin/dashboard.jsp").include(req, resp);
     }
 
     @Override
