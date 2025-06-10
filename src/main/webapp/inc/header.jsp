@@ -27,11 +27,11 @@
 <li><a href="cart"><i class="fa-solid fa-bag-shopping"></i></a></li>
 <li>
     <c:if test="${sessionScope.currentUser == null}">
-        <a href="LoginServlet">Login</a>
+        <a href="login">Login</a>
     </c:if>
 
     <c:if test="${sessionScope.currentUser != null}">
-        <a href="LogoutServlet">Logout</a>
+        <a href="logout">Logout</a>
     </c:if>
 </li>
 </ul>

@@ -41,26 +41,37 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <form action="CartServlet" method="post" class="single-pro-details">
-                            <input type="hidden" name="action" value="create"/>
-                            <input type="hidden" name="productId" value="${product.id}"/>
-                            <input type="hidden" name="price" value="${product.price}"/>
-                            <h6>Home / T-Shirt</h6>
-                            <h4>${product.name}</h4>
-                            <h2>$${product.price}</h2>
-                            <select>
-                                <option>Select Size</option>
-                                <option>S</option>
-                                <option>M</option>
-                                <option>L</option>
-                                <option>XL</option>
-                                <option>XXL</option>
-                            </select>
-                            <input name="quantity" type="number" value="1">
-                            <button class="normal">Add To Cart</button>
-                            <h4>Product Details</h4>
-                            <span>${product.description}</span>
-                        </form>
+                         <form action="cart" method="post" class="single-pro-details">
+                                <input type="hidden" name="action" value="create"/>
+                                <input type="hidden" name="productId" value="${product.id}"/>
+                                <input type="hidden" name="price" value="${product.price}"/>
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">T-Shirt</li>
+                                    </ol>
+                                </nav>
+                                <h1>${product.name}</h1>
+                                <p class="price">$${product.price}</p>
+                                <div class="form-group">
+                                    <label for="size" class="form-label">Select Size</label>
+                                    <select name="size" id="size" class="form-control" required>
+                                        <option value="" disabled selected>Select Size</option>
+                                        <option value="S">S</option>
+                                        <option value="M">M</option>
+                                        <option value="L">L</option>
+                                        <option value="XL">XL</option>
+                                        <option value="XXL">XXL</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="quantity" class="form-label">Quantity</label>
+                                    <input name="quantity" type="number" id="quantity" class="form-control" value="1" min="1" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Add To Cart</button>
+                                <h2>Product Details</h2>
+                                <p>${product.description}</p>
+                            </form>
                     </div>
                 </div>
             </div>
@@ -85,7 +96,7 @@
                             </div>
                             <h4>$${product.price}</h4>
                         </div>
-                        <a href="#"><i class="fa-solid fa-cart-shopping cart"></i></a>
+                        <a href="product?productId=${product.id}"><i class="fa-solid fa-cart-shopping cart"></i></a>
                     </div>
                 </c:forEach>
             </div>
