@@ -1,148 +1,211 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zxx">
 
 <head>
     <meta charset="UTF-8">
+    <meta name="description" content="Male_Fashion Template">
+    <meta name="keywords" content="Male_Fashion, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cara</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="assets/css/style.css">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Male-Fashion | Template</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
 
 <body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
 
-        <%@include file="./inc/header.jsp"%>
-
-
-    <section id="page-header" class="blog-header">
-        <h2>#readmore</h2>
-        <p>Read all case studies about our products!</p>
-    </section>
-
-    <section id="blog">
-        <div class="container blog-box">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="blog-img">
-                        <img class="poi-img" src="assets/images/blog/b1.jpg" alt="">
-                        <h1>6/12</h1>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="blog-details">
-                        <h4>The Cotton-Jersey Zip-up Hoodie</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In sed voluptate incidunt
-                            deleniti labore eaque nostrum reiciendis obcaecati. Numquam harum maxime doloribus quod
-                            ea veniam ab odio in, ad autem...</p>
-                        <a href="#">CONTINUE READING</a>
-                    </div>
-                </div>
+    <!-- Offcanvas Menu Begin -->
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="offcanvas-menu-wrapper">
+        <div class="offcanvas__option">
+            <div class="offcanvas__links">
+                <a href="#">Sign in</a>
+                <a href="#">FAQs</a>
+            </div>
+            <div class="offcanvas__top__hover">
+                <span>Usd <i class="arrow_carrot-down"></i></span>
+                <ul>
+                    <li>USD</li>
+                    <li>EUR</li>
+                    <li>USD</li>
+                </ul>
             </div>
         </div>
-        <div class="container blog-box">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="blog-img">
-                        <img class="poi-img" src="assets/images/blog/b2.jpg" alt="">
-                        <h1>4/12</h1>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="blog-details">
-                        <h4>How to Style a Quiff</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In sed voluptate incidunt
-                            deleniti labore eaque nostrum reiciendis obcaecati. Numquam harum maxime doloribus quod
-                            ea veniam ab odio in, ad autem...</p>
-                        <a href="#">CONTINUE READING</a>
-                    </div>
-                </div>
-            </div>
+        <div class="offcanvas__nav__option">
+            <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
+            <a href="#"><img src="img/icon/heart.png" alt=""></a>
+            <a href="#"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
+            <div class="price">$0.00</div>
         </div>
-        <div class="container blog-box">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="blog-img">
-                        <img class="poi-img" src="assets/images/blog/b3.jpg" alt="">
-                        <h1>1/12</h1>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="blog-details">
-                        <h4>Must-Have Skater Girl Items</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In sed voluptate incidunt
-                            deleniti labore eaque nostrum reiciendis obcaecati. Numquam harum maxime doloribus quod
-                            ea veniam ab odio in, ad autem...</p>
-                        <a href="#">CONTINUE READING</a>
-                    </div>
-                </div>
-            </div>
+        <div id="mobile-menu-wrap"></div>
+        <div class="offcanvas__text">
+            <p>Free shipping, 30-day return or refund guarantee.</p>
         </div>
-        <div class="container blog-box">
+    </div>
+    <!-- Offcanvas Menu End -->
+
+    <!-- Header Section Begin -->
+           <%@include file="./inc/header.jsp" %>
+
+    </header>
+    <!-- Header Section End -->
+
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-blog set-bg" data-setbg="img/breadcrumb-bg.jpg">
+        <div class="container">
             <div class="row">
-                <div class="col-md-6">
-                    <div class="blog-img">
-                        <img class="poi-img" src="assets/images/blog/b4.jpg" alt="">
-                        <h1>29/11</h1>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="blog-details">
-                        <h4>Runway-inspired Trends</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In sed voluptate incidunt
-                            deleniti labore eaque nostrum reiciendis obcaecati. Numquam harum maxime doloribus quod
-                            ea veniam ab odio in, ad autem...</p>
-                        <a href="#">CONTINUE READING</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container blog-box">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="blog-img">
-                        <img class="poi-img" src="assets/images/blog/b6.jpg" alt="">
-                        <h1>28/11</h1>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="blog-details">
-                        <h4>AW20 Menswear Trends</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In sed voluptate incidunt
-                            deleniti labore eaque nostrum reiciendis obcaecati. Numquam harum maxime doloribus quod
-                            ea veniam ab odio in, ad autem...</p>
-                        <a href="#">CONTINUE READING</a>
-                    </div>
+                <div class="col-lg-12">
+                    <h2>Our Blog</h2>
                 </div>
             </div>
         </div>
     </section>
+    <!-- Breadcrumb Section End -->
 
-    <section id="pagination" class="section-p1">
-        <a href="#">1</a>
-        <a href="#">2</a>
-        <a href="#"><i class="fa-solid fa-arrow-right"></i></a>
-    </section>
-
-    <section id="newsletter" class="section-p1 section-m1">
-        <div class="newstext">
-            <h4>Sign Up For Newsletters</h4>
-            <p>Get E-mail updates about our latest shop and <span>special offers</span></p>
+    <!-- Blog Section Begin -->
+    <section class="blog spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="blog__item">
+                        <div class="blog__item__pic set-bg" data-setbg="img/blog/blog-1.jpg"></div>
+                        <div class="blog__item__text">
+                            <span><img src="img/icon/calendar.png" alt=""> 16 February 2020</span>
+                            <h5>What Curling Irons Are The Best Ones</h5>
+                            <a href="#">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="blog__item">
+                        <div class="blog__item__pic set-bg" data-setbg="img/blog/blog-2.jpg"></div>
+                        <div class="blog__item__text">
+                            <span><img src="img/icon/calendar.png" alt=""> 21 February 2020</span>
+                            <h5>Eternity Bands Do Last Forever</h5>
+                            <a href="#">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="blog__item">
+                        <div class="blog__item__pic set-bg" data-setbg="img/blog/blog-3.jpg"></div>
+                        <div class="blog__item__text">
+                            <span><img src="img/icon/calendar.png" alt=""> 28 February 2020</span>
+                            <h5>The Health Benefits Of Sunglasses</h5>
+                            <a href="#">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="blog__item">
+                        <div class="blog__item__pic set-bg" data-setbg="img/blog/blog-4.jpg"></div>
+                        <div class="blog__item__text">
+                            <span><img src="img/icon/calendar.png" alt=""> 16 February 2020</span>
+                            <h5>Aiming For Higher The Mastopexy</h5>
+                            <a href="#">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="blog__item">
+                        <div class="blog__item__pic set-bg" data-setbg="img/blog/blog-5.jpg"></div>
+                        <div class="blog__item__text">
+                            <span><img src="img/icon/calendar.png" alt=""> 21 February 2020</span>
+                            <h5>Wedding Rings A Gift For A Lifetime</h5>
+                            <a href="#">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="blog__item">
+                        <div class="blog__item__pic set-bg" data-setbg="img/blog/blog-6.jpg"></div>
+                        <div class="blog__item__text">
+                            <span><img src="img/icon/calendar.png" alt=""> 28 February 2020</span>
+                            <h5>The Different Methods Of Hair Removal</h5>
+                            <a href="#">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="blog__item">
+                        <div class="blog__item__pic set-bg" data-setbg="img/blog/blog-7.jpg"></div>
+                        <div class="blog__item__text">
+                            <span><img src="img/icon/calendar.png" alt=""> 16 February 2020</span>
+                            <h5>Hoop Earrings A Style From History</h5>
+                            <a href="#">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="blog__item">
+                        <div class="blog__item__pic set-bg" data-setbg="img/blog/blog-8.jpg"></div>
+                        <div class="blog__item__text">
+                            <span><img src="img/icon/calendar.png" alt=""> 21 February 2020</span>
+                            <h5>Lasik Eye Surgery Are You Ready</h5>
+                            <a href="#">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="blog__item">
+                        <div class="blog__item__pic set-bg" data-setbg="img/blog/blog-9.jpg"></div>
+                        <div class="blog__item__text">
+                            <span><img src="img/icon/calendar.png" alt=""> 28 February 2020</span>
+                            <h5>Lasik Eye Surgery Are You Ready</h5>
+                            <a href="#">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="form">
-            <input type="text" placeholder="Your email address">
-            <button class="normal">Sign up</button>
-        </div>
     </section>
+    <!-- Blog Section End -->
 
-        <%@include file="./inc/footer.jsp"%>
+    <!-- Footer Section Begin -->
+           <%@include file="./inc/footer.jsp" %>
 
+    <!-- Footer Section End -->
 
+    <!-- Search Begin -->
+    <div class="search-model">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-switch">+</div>
+            <form class="search-model-form">
+                <input type="text" id="search-input" placeholder="Search here.....">
+            </form>
+        </div>
+    </div>
+    <!-- Search End -->
+
+    <!-- Js Plugins -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery.nicescroll.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/jquery.countdown.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>

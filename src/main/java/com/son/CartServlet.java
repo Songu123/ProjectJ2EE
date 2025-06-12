@@ -1,5 +1,6 @@
 package com.son;
 
+import com.son.data.model.Order;
 import com.son.data.model.OrderItem;
 import com.son.util.Helper;
 import jakarta.servlet.ServletException;
@@ -21,9 +22,13 @@ public class CartServlet extends BaseServlet {
             cart = new ArrayList<OrderItem>();
         }
 
+        for (OrderItem o: cart){
+            System.out.println(o);
+        }
+
         req.setAttribute("cart", cart);
         req.setAttribute("total", Helper.total(cart));
-        req.getRequestDispatcher("cart.jsp").include(req, resp);
+        req.getRequestDispatcher("shopping-cart.jsp").include(req, resp);
     }
 
     @Override

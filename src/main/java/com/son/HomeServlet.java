@@ -11,8 +11,7 @@ import java.io.IOException;
 public class HomeServlet extends BaseServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
-        req.getRequestDispatcher("home.jsp").include(req, resp);
+        req.getRequestDispatcher("index.jsp").include(req, resp);
     }
 
     @Override

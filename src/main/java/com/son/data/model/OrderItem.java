@@ -72,4 +72,15 @@ public class OrderItem {
     public Order getOrder(){
         return DatabaseDao.getInstance().getOrderDao().find(this.orderId);
     }
+
+    @Override
+    public String toString() {
+        return "OrderItem{" +
+                "id=" + id +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                ", orderId=" + orderId +
+                ", productId=" + productId +
+                '}';
+    }
 }

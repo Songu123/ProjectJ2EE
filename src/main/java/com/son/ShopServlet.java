@@ -1,6 +1,5 @@
 package com.son;
 
-import com.son.data.Impl.ProductImpl;
 import com.son.data.dao.DatabaseDao;
 import com.son.data.dao.ProductDao;
 import com.son.data.model.Product;
@@ -24,45 +23,41 @@ public class ShopServlet extends BaseServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
-
-        // Get total number of products for pagination
-        List<Product> allProducts = productDao.findAll();
-
-        for (Product p: allProducts) {
-            System.out.println(p);
-        }
-        int total = allProducts.size();
-
-        // Default to page 1 if not specified or invalid
-        int page = 1;
-        String pageParam = req.getParameter("page");
-        if (pageParam != null) {
+        List<Product> productList = productDao.findAll();
+        int total = productList.size();
+        int perPage = Constants.PER_PAGE;
+        int totalPages = (int) Math.ceil((double) total / perPage);
+        int currentPage = 1;
+        if (req.getParameter("page") != null) {
             try {
-                page = Integer.parseInt(pageParam);
-                if (page < 1) page = 1;
+                currentPage = Integer.parseInt(req.getParameter("page"));
+                if (currentPage < 1) currentPage = 1;
+                if (currentPage > totalPages) currentPage = totalPages;
             } catch (NumberFormatException e) {
-                page = 1;
+                currentPage = 1;
             }
         }
+        req.setAttribute("totalPages", (int) Math.ceil((double) total / Constants.PER_PAGE));
 
-        // Calculate total number of pages (round up)
-        int numberPage = (int) Math.ceil((double) total / Constants.PER_PAGE);
-
-        // Get products for the current page
-        int offset = (page - 1) * Constants.PER_PAGE;
-        List<Product> productList = productDao.getProducts(offset, Constants.PER_PAGE);
-
-        req.setAttribute("productList", productList);
+        req.setAttribute("current", currentPage);
+        req.setAttribute("productList", productDao.getProducts((currentPage - 1) * perPage, perPage));
         req.setAttribute("total", total);
-        req.setAttribute("page", page);
-        req.setAttribute("numberPage", numberPage);
-
-        req.getRequestDispatcher("shop.jsp").include(req, resp);
+        req.getRequestDispatcher("shop.jsp").forward(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+    // In your ShopServlet doPost method
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
+        String keyword = req.getParameter("keyword");
+        System.out.println(keyword);
+        ProductDao productDao = DatabaseDao.getInstance().getProductDao();
+        List<Product> productList = productDao.findByName(keyword);
+
+        req.setAttribute("keyword", keyword);
+        req.setAttribute("productList", productList);
+        System.out.println(productList.size());
+        req.getRequestDispatcher("shop.jsp").include(req, resp);
     }
 }
