@@ -1,29 +1,43 @@
 package com.son;
 
+import com.son.data.dao.CategoryDao;
 import com.son.data.dao.DatabaseDao;
 import com.son.data.dao.ProductDao;
+import com.son.data.model.Category;
 import com.son.data.model.Product;
-import com.son.util.Constants;
+import com.son.utils.Constants;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ShopServlet extends BaseServlet {
     private ProductDao productDao;
+    private CategoryDao categoryDao;
 
     @Override
     public void init() throws ServletException {
         super.init();
         // Use DatabaseDao to get the ProductDao instance for consistency
         productDao = DatabaseDao.getInstance().getProductDao();
+        categoryDao = DatabaseDao.getInstance().getCategoryDao();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Product> productList = productDao.findAll();
+        List<Category> categoryList = categoryDao.findAll();
+
+        Map<Integer, Integer> categoryProductCount = new HashMap<>();
+        for (Category category : categoryList) {
+            List<Product> productsInCategory = productDao.findByCategory(category.getId());
+            categoryProductCount.put(category.getId(), productsInCategory.size());
+        }
+
         int total = productList.size();
         int perPage = Constants.PER_PAGE;
         int totalPages = (int) Math.ceil((double) total / perPage);
@@ -37,8 +51,10 @@ public class ShopServlet extends BaseServlet {
                 currentPage = 1;
             }
         }
-        req.setAttribute("totalPages", (int) Math.ceil((double) total / Constants.PER_PAGE));
 
+        req.setAttribute("categoryList", categoryList);
+        req.setAttribute("categoryProductCount", categoryProductCount);
+        req.setAttribute("totalPages", (int) Math.ceil((double) total / Constants.PER_PAGE));
         req.setAttribute("current", currentPage);
         req.setAttribute("productList", productDao.getProducts((currentPage - 1) * perPage, perPage));
         req.setAttribute("total", total);
@@ -49,9 +65,7 @@ public class ShopServlet extends BaseServlet {
     // In your ShopServlet doPost method
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-
         String keyword = req.getParameter("keyword");
-        System.out.println(keyword);
         ProductDao productDao = DatabaseDao.getInstance().getProductDao();
         List<Product> productList = productDao.findByName(keyword);
 

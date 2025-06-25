@@ -3,7 +3,7 @@ package com.son.data.Impl;
 import com.son.data.dao.ProductDao;
 import com.son.data.db.DatabaseConnection;
 import com.son.data.model.Product;
-import com.son.util.Constants;
+import com.son.utils.Constants;
 
 import java.sql.*;
 import java.util.List;

@@ -15,8 +15,17 @@
                     <div class="col-lg-6 col-md-5">
                         <div class="header__top__right">
                             <div class="header__top__links">
-                                <a href="login">Sign in</a>
-                                <a href="#">FAQs</a>
+                                <c:choose>
+                                    <c:when test="${not empty sessionScope.currentUser}">
+                                        <a href="profile">My Account</a>
+                                        <a href="logout">Logout</a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a href="login">Sign in</a>
+                                        <a href="register">Register</a>
+                                    </c:otherwise>
+                                </c:choose>
+                                <a href="faqs">FAQs</a>
                             </div>
                             <div class="header__top__hover">
                                 <span>Usd <i class="arrow_carrot-down"></i></span>
@@ -38,8 +47,6 @@
                         <a href="home"><img src="img/logo.png" alt=""></a>
                     </div>
                 </div>
-                <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-                <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
                 <%-- Get current page name --%>
                 <c:set var="currentPage" value="${pageContext.request.requestURI}" />
@@ -96,13 +103,14 @@
                         </ul>
                     </nav>
                 </div>
-                <div class="col-lg-3 col-md-3">
-                    <div class="header__nav__option">
-                        <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
-                        <a href="#"><img src="img/icon/heart.png" alt=""></a>
-                        <a href="cart"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
-                        <div class="price">$0.00</div>
-                    </div>
+                <div class="header__nav__option">
+                    <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
+                    <a href="#"><img src="img/icon/heart.png" alt=""></a>
+                    <a href="cart">
+                        <img src="img/icon/cart.png" alt="">
+                        <span>${not empty sessionScope.cart ? sessionScope.cart.size() : 0}</span>
+                    </a>
+                    <div class="price">$${not empty sessionScope.cart ? String.format("%.2f", Helper.total(sessionScope.cart)) : '0.00'}</div>
                 </div>
             </div>
             <div class="canvas__open"><i class="fa fa-bars"></i></div>
