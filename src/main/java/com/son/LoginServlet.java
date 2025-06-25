@@ -3,6 +3,7 @@ package com.son;
 import com.son.data.Impl.UserImpl;
 import com.son.data.dao.UserDAO;
 import com.son.data.model.User;
+import com.son.utils.PasswordUtils;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 
@@ -35,8 +36,8 @@ public class LoginServlet extends HttpServlet {
         String password = req.getParameter("password");
 
         // Không in thông tin nhạy cảm ra console
-        // System.out.println(email);
-        // System.out.println(password);
+         System.out.println(email);
+         System.out.println(password);
 
         // Input validation
         if (email == null || email.trim().isEmpty() || password == null || password.trim().isEmpty()) {
@@ -46,12 +47,20 @@ public class LoginServlet extends HttpServlet {
         }
 
         try {
-            // Log authentication attempt for debugging
-            getServletContext().log("Attempting login for email: " + email);
+            // Get the user object from the database
+            User user = userDAO.find(email);
 
-            User user = userDAO.find(email, password);
-            // System.out.println(user);
+            System.out.println("User found: " + user); // Debugging line, can be removed later
             if (user != null) {
+                // Check password
+                boolean check = PasswordUtils.checkPassword(password, user.getPassword());
+                System.out.println("Password check result: " + check); // Debugging line, can be removed later
+                if (!check) {
+                    req.setAttribute("errorMessage", "Email hoặc mật khẩu không đúng");
+                    req.getRequestDispatcher("login.jsp").forward(req, resp);
+                    return;
+                }
+
                 // Log successful authentication
                 getServletContext().log("Login successful for user: " + user.getEmail());
 
@@ -67,7 +76,6 @@ public class LoginServlet extends HttpServlet {
             } else {
                 // Log failed authentication
                 getServletContext().log("Login failed for email: " + email);
-
                 req.setAttribute("errorMessage", "Email hoặc mật khẩu không đúng");
                 req.getRequestDispatcher("login.jsp").forward(req, resp);
             }

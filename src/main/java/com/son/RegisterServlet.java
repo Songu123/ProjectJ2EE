@@ -5,6 +5,7 @@ import com.son.data.dao.DatabaseDao;
 import com.son.data.dao.UserDAO;
 import com.son.data.db.DatabaseConnection;
 import com.son.data.model.User;
+import com.son.utils.PasswordUtils;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -42,7 +43,7 @@ public class RegisterServlet extends BaseServlet {
             session.setAttribute("error", "Email existed");
             request.getRequestDispatcher("register.jsp").forward(request, response);
         }else{
-            user = new User(email, password, "user");
+            user = new User(email, PasswordUtils.hashPassword(password), "user");
             userDao.insert(user);
             response.sendRedirect("login");
         }

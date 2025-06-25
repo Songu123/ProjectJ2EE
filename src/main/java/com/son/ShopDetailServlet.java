@@ -3,7 +3,7 @@ package com.son;
 import com.son.data.dao.DatabaseDao;
 import com.son.data.dao.ProductDao;
 import com.son.data.model.Product;
-import com.son.util.Constants;
+import com.son.utils.Constants;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;

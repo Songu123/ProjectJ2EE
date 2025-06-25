@@ -102,12 +102,12 @@
                     <nav class="header__menu mobile-menu">
                         <ul>
                             <li><a href="index.jsp">Home</a></li>
-                            <li class="active"><a href="shop.jsp">Shop</a></li>
+                            <li class="active"><a href="shop">Shop</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="dropdown">
                                     <li><a href="about.jsp">About Us</a></li>
                                     <li><a href="shop-details.jsp">Shop Details</a></li>
-                                    <li><a href="./shopping-cart.html">Shopping Cart</a></li>
+                                    <li><a href="cart">Shopping Cart</a></li>
                                     <li><a href="checkout.jsp">Check Out</a></li>
                                     <li><a href="blog-details.jsp">Blog Details</a></li>
                                 </ul>
@@ -121,8 +121,8 @@
                     <div class="header__nav__option">
                         <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
                         <a href="#"><img src="img/icon/heart.png" alt=""></a>
-                        <a href="#"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
-                        <div class="price">$0.00</div>
+                        <a href="cart"><img src="img/icon/cart.png" alt=""> <span>${cartSize}</span></a>
+                        <div class="price">$${String.format("%.2f", total)}</div>
                     </div>
                 </div>
             </div>
@@ -140,7 +140,7 @@
                         <h4>Shopping Cart</h4>
                         <div class="breadcrumb__links">
                             <a href="index.jsp">Home</a>
-                            <a href="shop.jsp">Shop</a>
+                            <a href="shop">Shop</a>
                             <span>Shopping Cart</span>
                         </div>
                     </div>
@@ -156,58 +156,73 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="shopping__cart__table">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Product</th>
-                                    <th>Quantity</th>
-                                    <th>Total</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                                    <c:forEach items="${cart}" var="orderItem">
-                                <tr>
-                                    <td class="product__cart__item">
-                                        <div class="product__cart__item__pic">
-                                            <img src="img/shopping-cart/cart-4.jpg" alt="">
-                                        </div>
-                                        <div class="product__cart__item__text">
-                                            <h5>$${orderItem.price}</h5>
-                                        </div>
-                                    </td>
-                                    <td class="quantity__item">
-                                        <div class="quantity">
-                                            <div class="pro-qty-2">
-                                                <input type="text" value="${orderItem.quantity}">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="cart__price">$ ${String.format("%.2f", orderItem.price)}</td>
-<td class="cart__close">
-    <form action="cart" method="post" style="display: inline;"
-          onsubmit="return confirm('Are you sure you want to remove this item from cart?')">
-        <input type="hidden" name="action" value="delete">
-        <input type="hidden" name="productId" value="${orderItem.productId}">
-        <button type="submit" class="btn-remove-item"
-                style="background: none; border: none; color: #e74c3c; cursor: pointer; font-size: 16px;">
-            <i class="fa fa-close"></i>
-        </button>
-    </form>
-</td>                                </tr>
-                                                    </c:forEach>
-                            </tbody>
-                        </table>
+                        <!-- Update Cart Form -->
+                        <div class="cart-container">
+                            <form id="updateCartForm" action="cart" method="post">
+                                <input type="hidden" name="action" value="update">
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach items="${cart}" var="orderItem" varStatus="status">
+                                        <tr>
+                                            <td class="product__cart__item">
+                                                <div class="product__cart__item__pic">
+                                                    <img src="img/shopping-cart/cart-4.jpg" alt="">
+                                                </div>
+                                                <div class="product__cart__item__text">
+                                                    <h5>$${String.format("%.2f", orderItem.price)}</h5>
+                                                </div>
+                                            </td>
+                                            <td class="quantity__item">
+                                                <div class="quantity">
+                                                    <div class="pro-qty-2">
+                                                        <!-- Sử dụng mảng để giữ nhiều giá trị cho cùng một tham số -->
+                                                        <input type="hidden" name="productId" value="${orderItem.productId}">
+                                                        <input type="number" name="quantity" value="${orderItem.quantity}" min="1" max="99" class="quantity-input">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="cart__price">$${String.format("%.2f", orderItem.price * orderItem.quantity)}</td>
+                                            <td class="cart__close">
+                                                <!-- Nút xóa gọi JavaScript thay vì sử dụng form lồng -->
+                                                <button type="button" class="cart__close__btn" onclick="removeCartItem(${orderItem.productId})">
+                                                    <i class="fa fa-close"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
+
+                            </form>
+                        </div>
+
+                        <!-- Form xóa sản phẩm riêng biệt ẩn -->
+                        <form id="removeItemForm" action="cart" method="post" style="display: none;">
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" id="removeProductId" name="productId" value="">
+                        </form>
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="continue__btn">
-                                <a href="#">Continue Shopping</a>
+                                <a href="shop">Continue Shopping</a>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="continue__btn update__btn">
-                                <a href="#"><i class="fa fa-spinner"></i> Update cart</a>
+                                <!-- Update cart button that submits the updateCartForm -->
+                                <button type="submit" form="updateCartForm" class="site-btn"
+                                        style="background: #e7ab3c; border: none; padding: 14px 30px; color: white; text-transform: uppercase; font-weight: 700; cursor: pointer;">
+                                    <i class="fa fa-spinner"></i> Update cart
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -223,10 +238,10 @@
                     <div class="cart__total">
                         <h6>Cart total</h6>
                         <ul>
-                            <li>Subtotal <span>$ ${total}</span></li>
-                            <li>Total <span>$ ${total}</span></li>
+                            <li>Subtotal <span>$${String.format("%.2f", total)}</span></li>
+                            <li>Total <span>$${String.format("%.2f", total)}</span></li>
                         </ul>
-                        <a href="#" class="primary-btn">Proceed to checkout</a>
+                        <a href="checkout" class="primary-btn">Proceed to checkout</a>
                     </div>
                 </div>
             </div>
@@ -323,6 +338,27 @@
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
+
+    <!-- Custom script for cart functionality -->
+    <script>
+        // Optional: Auto-update total when quantity changes
+        document.addEventListener('DOMContentLoaded', function() {
+            const quantityInputs = document.querySelectorAll('.quantity-input');
+            quantityInputs.forEach(input => {
+                input.addEventListener('change', function() {
+                    // You can add real-time total calculation here if needed
+                    console.log('Quantity changed for product:', this.name, 'New value:', this.value);
+                });
+            });
+        });
+        // Add this to your existing script section at the bottom of the file
+        function removeCartItem(productId) {
+            if (confirm('Are you sure you want to remove this item from cart?')) {
+                document.getElementById('removeProductId').value = productId;
+                document.getElementById('removeItemForm').submit();
+            }
+        }
+    </script>
 </body>
 
 </html>

@@ -4,11 +4,10 @@ import com.son.data.dao.UserDAO;
 import com.son.data.db.DatabaseConnection;
 import com.son.data.model.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class UserImpl implements UserDAO {
@@ -34,17 +33,27 @@ public class UserImpl implements UserDAO {
 
     @Override
     public boolean update(User user) {
-        // TODO Auto-generated method stub
-        String sql = "UPDATE USERS SET email = ? ,password = ?, role = ? WHERE id = ?";
+        String sql = "UPDATE USERS SET email = ?, password = ?, role = ?, reset_token = ?, reset_token_expiry = ? WHERE id = ?";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, user.getEmail());
             stmt.setString(2, user.getPassword());
             stmt.setString(3, user.getRole());
-            stmt.setInt(4, user.getId());
-            return stmt.execute();
+            stmt.setString(4, user.getResetToken());
+
+            LocalDateTime expire = user.getResetTokenExpire();
+            if (expire != null) {
+                stmt.setTimestamp(5, Timestamp.valueOf(expire));
+            } else {
+                stmt.setNull(5, java.sql.Types.TIMESTAMP);
+            }
+
+            stmt.setInt(6, user.getId());
+
+            // executeUpdate trả về số dòng bị ảnh hưởng
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return false;
@@ -148,6 +157,38 @@ public class UserImpl implements UserDAO {
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public User findByResetToken(String token) {
+        System.out.println("Finding user by reset token: " + token);
+        String sql = "SELECT * FROM USERS WHERE reset_token = ?";
+        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, token); // Đưa token vào đúng vị trí ?
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    int id = rs.getInt("id");
+                    String email = rs.getString("email");
+                    String password = rs.getString("password");
+                    String role = rs.getString("role");
+                    String resetToken = rs.getString("reset_token");
+                    java.sql.Timestamp resetTokenExpiry = rs.getTimestamp("reset_token_expiry");
+
+                    User user = new User(id, email, password, role);
+                    user.setResetToken(resetToken);
+                    if (resetTokenExpiry != null) {
+                        user.setResetTokenExpire(resetTokenExpiry.toLocalDateTime());
+                    } else {
+                        user.setResetTokenExpire(null);
+                    }
+                    System.out.println("User found by reset token: " + email);
+                    return user;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
         return null;
     }

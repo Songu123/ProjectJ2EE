@@ -18,4 +18,6 @@ public interface UserDAO {
     public User find(String email, String password);
 
     public User find(String email);
+
+    public User findByResetToken(String token);
 }
